@@ -1,0 +1,4 @@
+*.safetensors
+*.npz
+models/Qwen*/
+weights/trained/*.npz

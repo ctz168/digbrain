@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-03-08T23:25:40.031850",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "evaluation_type": "real_model_inference",
+  "dimensions": {
+    "knowledge": {
+      "name": "知识问答",
+      "correct": 5,
+      "total": 6,
+      "accuracy": 0.8333333333333334
+    },
+    "reasoning": {
+      "name": "逻辑推理",
+      "correct": 3,
+      "total": 4,
+      "accuracy": 0.75
+    },
+    "math": {
+      "name": "数学能力",
+      "correct": 4,
+      "total": 4,
+      "accuracy": 1.0
+    },
+    "coding": {
+      "name": "代码能力",
+      "correct": 3,
+      "total": 3,
+      "accuracy": 1.0
+    },
+    "language": {
+      "name": "语言理解",
+      "correct": 0,
+      "total": 3,
+      "accuracy": 0.0
+    }
+  },
+  "overall": {
+    "correct": 15,
+    "total": 20,
+    "accuracy": 0.75
+  }
+}
