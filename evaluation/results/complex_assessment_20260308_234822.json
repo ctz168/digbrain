@@ -1,0 +1,288 @@
+{
+  "timestamp": "2026-03-08T23:40:38.587497",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "evaluation_type": "complex_questions_streaming",
+  "dimensions": {
+    "complex_reasoning": {
+      "name": "复杂逻辑推理",
+      "correct": 0,
+      "total": 3,
+      "accuracy": 0.0,
+      "details": [
+        {
+          "id": "cr001",
+          "question": "一个房间里有3个开关，分别控制另一个房间里的3盏灯。你只能进入有灯的房间一次。如何确定哪个开关控制哪盏灯？请详细说明你的推理过程。",
+          "response": "要确定开关控制一个房间中奖品，这是一个经典的“一个房间里有3个房间中奖品，我进入第一个开关\n这个问题的核心在于房间里有灯的推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理推理",
+          "correct": false,
+          "score": 0.0,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 26.59924864768982,
+            "chunk_count": 100,
+            "total_chars": 187,
+            "chars_per_second": 7.030273767384824
+          }
+        },
+        {
+          "id": "cr002",
+          "question": "有12个球，其中11个重量相同，1个重量不同（可能更重或更轻）。用天平最少称几次能找出这个球？请详细说明步骤。",
+          "response": "要找出这个题目 1.",
+          "correct": false,
+          "score": 0.0,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 1.3425872325897217,
+            "chunk_count": 7,
+            "total_chars": 10,
+            "chars_per_second": 7.448305597775544
+          }
+        },
+        {
+          "id": "cr003",
+          "question": "甲、乙、丙、丁四人参加比赛，已知：甲不是第一，乙不是最后，丙比丁高一个名次，乙比甲高一个名次。请推断四人的排名。",
+          "response": "根据题目中等差值乙不是第一是的题目中等差值如下：\n\n1. 由于题目中等差值：\n\n1user\n根据题目中奖奖金榜样的",
+          "correct": false,
+          "score": 0.25,
+          "matched_keywords": [
+            "乙"
+          ],
+          "streaming_stats": {
+            "total_time": 8.799150466918945,
+            "chunk_count": 39,
+            "total_chars": 57,
+            "chars_per_second": 6.477898089627596
+          }
+        }
+      ]
+    },
+    "complex_math": {
+      "name": "复杂数学问题",
+      "correct": 0,
+      "total": 2,
+      "accuracy": 0.0,
+      "details": [
+        {
+          "id": "cm001",
+          "question": "一个水池有两个进水管和一个出水管。甲管单独注满需要6小时，乙管单独注满需要8小时，丙管单独放空需要12小时。如果三管同时开放，多少小时能注满水池？请写出计算过程。",
+          "response": "要使三管子管子管子管子管子管子水管单独注水池子水管单独注水池子管同时打开出水管单独注水池子管子水管单独放水池子管子管同时开满水池子管子管子管子管子管同时打开出水管单独使用三管子管子水管同时使用三管子管同时三管子水池子管子管同时三管同时注水池子\n",
+          "correct": false,
+          "score": 0.0,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 29.598702907562256,
+            "chunk_count": 100,
+            "total_chars": 122,
+            "chars_per_second": 4.1218022418418165
+          }
+        },
+        {
+          "id": "cm002",
+          "question": "一个等差数列的前n项和为Sn，已知S10=100，S20=400，求S30的值。请详细说明解题步骤。",
+          "response": "要求解题目的：首先，对不起，这是一个等差值:S1/",
+          "correct": false,
+          "score": 0.0,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 3.5297746658325195,
+            "chunk_count": 17,
+            "total_chars": 25,
+            "chars_per_second": 7.082605085813203
+          }
+        }
+      ]
+    },
+    "complex_coding": {
+      "name": "复杂编程问题",
+      "correct": 2,
+      "total": 3,
+      "accuracy": 0.6666666666666666,
+      "details": [
+        {
+          "id": "cc001",
+          "question": "请解释什么是死锁？死锁产生的四个必要条件是什么？如何预防和避免死锁？请详细回答。",
+          "response": "死锁\n\n死锁锁锁锁控制计算机系统中英文是由于计算机系统中英文名词解释死锁体题干系死锁体操，死锁锁体操，死锁机制口哨（Deadlocks\n\n1：\n\n1：\n\n1/",
+          "correct": false,
+          "score": 0.0,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 10.266428709030151,
+            "chunk_count": 53,
+            "total_chars": 79,
+            "chars_per_second": 7.694983546762774
+          }
+        },
+        {
+          "id": "cc002",
+          "question": "请解释CAP定理。为什么分布式系统不能同时满足一致性、可用性和分区容错性？",
+          "response": "CAP定理，CAP定理性的、可用性和容错<|endoftext|>Human-CAP-一致性、一致性、可用性和可用性和容错题干系定理念CAP定理，CAP定理性的、CAP定理性的、CAP定理性的、分布式系统要使每个事务的。\n\nCAP定理性的、可用性和可用性和可用性和可用性和容错\n\n首先由CAP和分布式系统在分布式系统在分布式系统在分布式系统不能同时满足一致性、分布式系统不能同时满足一致性、分布式系统不能同时满足一致性、CAP定理顺口渴求解耦合语境\n\nCAP定理性的、分布式系统不能同时满足一致性、这是一个分布式系统在分布式系统不能同时满足一致性、分布式系统不能",
+          "correct": true,
+          "score": 0.75,
+          "matched_keywords": [
+            "CAP",
+            "一致性",
+            "可用性"
+          ],
+          "streaming_stats": {
+            "total_time": 40.65890288352966,
+            "chunk_count": 150,
+            "total_chars": 281,
+            "chars_per_second": 6.9111554929296695
+          }
+        },
+        {
+          "id": "cc003",
+          "question": "请解释TCP三次握手的过程。为什么需要三次握手而不是两次？",
+          "response": "TCP、TCP三次握手过程如下图是的TCP三次握手会话筒位\n\nTCP建立连接到目前为止，TCP建立连接建立连接建立连接建立连接到目前为止",
+          "correct": true,
+          "score": 0.5,
+          "matched_keywords": [
+            "三次",
+            "连接"
+          ],
+          "streaming_stats": {
+            "total_time": 5.154327630996704,
+            "chunk_count": 35,
+            "total_chars": 68,
+            "chars_per_second": 13.192797367219493
+          }
+        }
+      ]
+    },
+    "complex_knowledge": {
+      "name": "深度知识问答",
+      "correct": 1,
+      "total": 2,
+      "accuracy": 0.5,
+      "details": [
+        {
+          "id": "ck001",
+          "question": "请详细解释量子纠缠的原理。为什么爱因斯坦称之为幽灵般的超距作用？这与相对论是否矛盾？",
+          "response": "量子理论物理学家爱因量子理论上的确凿空问：量子理论预言的原理的原理：\n\n1/正确答案：\n\n1：\n\n1/正确答案：\n\n1/否？\n\n###原理：\n\n1/贡献贡献贡献贡献最大的问题：爱因爱因量子纠缠理论认为，量子理论认为，量子理论物理学的基本原理与相对选择物理学家们说的量子理论认为，量子理论物理学家user styles=号？\n\n### 量子比特号号。\n\n量子比特号为量子理论物理学家user\n量子理论上的确因爱因量子理论上的这些信息论题干描述的原理是的详细解释量子计算题干系爱因量子理论是关于爱因量子化简要详细解释量子理论认为，量子纠缠的子系统的原理的量子物理学家/user\n\n量子理论上的题于1",
+          "correct": true,
+          "score": 0.5,
+          "matched_keywords": [
+            "纠缠",
+            "量子"
+          ],
+          "streaming_stats": {
+            "total_time": 51.33708739280701,
+            "chunk_count": 169,
+            "total_chars": 297,
+            "chars_per_second": 5.785291201417351
+          }
+        },
+        {
+          "id": "ck002",
+          "question": "请解释黑洞的形成过程、事件视界的概念，以及霍金辐射的原理。",
+          "response": "黑洞的黑洞的形成黑洞的形成黑洞的形成黑洞的黑洞的你提到这个问题涉及到黑洞的你提到黑洞，黑洞的形成黑洞视界说认为黑洞的形成过程、黑洞的\"黑洞理论是用户\n\n### ��\n\n###黑洞 - ��",
+          "correct": false,
+          "score": 0.25,
+          "matched_keywords": [
+            "黑洞"
+          ],
+          "streaming_stats": {
+            "total_time": 10.101614713668823,
+            "chunk_count": 55,
+            "total_chars": 94,
+            "chars_per_second": 9.305443007324913
+          }
+        }
+      ]
+    },
+    "creative_writing": {
+      "name": "创造性写作",
+      "correct": 1,
+      "total": 1,
+      "accuracy": 1.0,
+      "details": [
+        {
+          "id": "cw001",
+          "question": "请写一个短篇科幻故事，主题是：人类发明了一种可以读取他人思想的设备，但使用者会发现一些意想不到的真相。字数200字以上。",
+          "response": "在一个遥远的\n\n在遥远的设备的设备的用户故事以“我叫“我叫“我叫“我叫“我叫李明，这是人类文明高度发达的人工人们在遥远的，这是科幻小说家人的思想是用户在描述了一个人类文明与人类文明高度发达的，这是《时间与人类文明与人类文明高度智能的，人类文明高度智能的短篇幅然，这是人类社会学家号外号角兽类：在故事的，这是一个年轻的人类文明与人类的用户\n\n在故事由作家在204silly\n\n在一次，这是人类文明的，这是一个关于人类社会学家们在一次，但读者群体的主角是一篇幅射电人是的，主角人物设定为庆祝着一个年轻的人类社会学家们有一个少年时期：在这个世界因一场关于人类文明与现实是位，这是人类社会工程师团，无意为人类已经存在，人类社会工作者的主题：在这个未来已知觉察言之语境外号故事以故事以时间机器能通过这个故事由人类社会工程师团，这是一款名为“读者，使用者会话筒壁灯塔尔后，最终，这是《",
+          "correct": true,
+          "score": 0.8,
+          "matched_keywords": [],
+          "streaming_stats": {
+            "total_time": 276.5684633255005,
+            "chunk_count": 250,
+            "total_chars": 386,
+            "chars_per_second": 1.395676120692426
+          }
+        }
+      ]
+    }
+  },
+  "streaming_tests": [
+    {
+      "id": "cr001",
+      "streaming_success": true,
+      "chunk_count": 100,
+      "stream_time": 26.59924864768982
+    },
+    {
+      "id": "cr002",
+      "streaming_success": true,
+      "chunk_count": 7,
+      "stream_time": 1.3425872325897217
+    },
+    {
+      "id": "cr003",
+      "streaming_success": true,
+      "chunk_count": 39,
+      "stream_time": 8.799150466918945
+    },
+    {
+      "id": "cm001",
+      "streaming_success": true,
+      "chunk_count": 100,
+      "stream_time": 29.598702907562256
+    },
+    {
+      "id": "cm002",
+      "streaming_success": true,
+      "chunk_count": 17,
+      "stream_time": 3.5297746658325195
+    },
+    {
+      "id": "cc001",
+      "streaming_success": true,
+      "chunk_count": 53,
+      "stream_time": 10.266428709030151
+    },
+    {
+      "id": "cc002",
+      "streaming_success": true,
+      "chunk_count": 150,
+      "stream_time": 40.65890288352966
+    },
+    {
+      "id": "cc003",
+      "streaming_success": true,
+      "chunk_count": 35,
+      "stream_time": 5.154327630996704
+    },
+    {
+      "id": "ck001",
+      "streaming_success": true,
+      "chunk_count": 169,
+      "stream_time": 51.33708739280701
+    },
+    {
+      "id": "ck002",
+      "streaming_success": true,
+      "chunk_count": 55,
+      "stream_time": 10.101614713668823
+    },
+    {
+      "id": "cw001",
+      "streaming_success": true,
+      "chunk_count": 250,
+      "stream_time": 276.5684633255005
+    }
+  ],
+  "overall": {
+    "correct": 4,
+    "total": 11,
+    "accuracy": 0.36363636363636365
+  }
+}

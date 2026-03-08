@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-03-08T23:48:03.491171",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "results": [
+    {
+      "id": "stream_001",
+      "question": "请解释什么是死锁，以及死锁产生的四个必要条件。",
+      "response": "死锁表示死锁锁锁控制计算机中的死锁体",
+      "chunk_count": 13,
+      "streaming_time": 19.236950874328613,
+      "chars_per_second": 0.9356992237278464,
+      "matched_keywords": [],
+      "score": 0.0
+    },
+    {
+      "id": "stream_002",
+      "question": "请解释TCP三次握手的过程。",
+      "response": "TCP/IP协议的TCP握手过程如下是用户在互联网上，TCP/IP地址为TCP握手过程：\n\n1/三次握手是的TCP、TCP握手过程：\n\nTCP是TCP握手的过程是用户\nTCP握手是用户在网络上标谓\n\nTCP/IP地址池\n\nTCP建立连接()",
+      "chunk_count": 61,
+      "streaming_time": 157.031973361969,
+      "chars_per_second": 0.7641755843148715,
+      "matched_keywords": [
+        "连接"
+      ],
+      "score": 33.33333333333333
+    },
+    {
+      "id": "stream_003",
+      "question": "请解释量子纠缠的基本原理。",
+      "response": "量子理论物理学中世纪以来自1.",
+      "chunk_count": 9,
+      "streaming_time": 17.658183097839355,
+      "chars_per_second": 0.849464518341946,
+      "matched_keywords": [
+        "量子"
+      ],
+      "score": 33.33333333333333
+    }
+  ]
+}
