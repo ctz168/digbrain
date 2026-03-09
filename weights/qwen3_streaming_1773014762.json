@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-03-09T00:06:02.510133",
+  "model": "Qwen3.5-0.8B",
+  "results": [
+    {
+      "question": "请解释什么是死锁？",
+      "response": "<think>\nHere's a thinking process that leads to the explanation of a deadlock:\n\n1.  **Analyze the Request:**\n    *   **User's Request:** The user is asking for an explanation of \"Deadlock\" (死锁 - \"shís",
+      "stats": {
+        "total_tokens": 348,
+        "time": 45.456109285354614,
+        "tokens_per_second": 7.655736609910897
+      }
+    },
+    {
+      "question": "TCP三次握手是什么？",
+      "response": "<think>\n\n</think>\n\n**TCP 三次握手**（Three-Handshake）是 TCP（传输控制协议）协议中用于**建立连接**的**三次握手**过程。\n\n简单来说，它是由客户端和服务器进行的一种**身份和身份验证**过程，用于验证对方是否是一个可信的服务器，并确认对方是否同意建立连接。\n\n### 核心流程：\n\n1.  **客户端发起**：\n    *   **客户端发起**：",
+      "stats": {
+        "total_tokens": 208,
+        "time": 44.41248154640198,
+        "tokens_per_second": 4.6833681153952735
+      }
+    }
+  ],
+  "stdp_updates": 8,
+  "memory_count": 2
+}
