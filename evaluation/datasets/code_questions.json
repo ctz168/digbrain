@@ -1,0 +1,317 @@
+{
+  "dimension": "code",
+  "description": "代码能力测试数据集",
+  "version": "1.0",
+  "categories": {
+    "python_basic": "Python基础",
+    "python_oop": "面向对象编程",
+    "algorithm": "算法实现",
+    "data_structure": "数据结构",
+    "concept": "编程概念"
+  },
+  "difficulty_levels": {
+    "easy": 1,
+    "medium": 2,
+    "hard": 3
+  },
+  "questions": [
+    {
+      "id": "code_py_001",
+      "question": "写一个Python函数，计算列表中所有数字的和",
+      "category": "python_basic",
+      "difficulty": "easy",
+      "expected_answers": [],
+      "keywords": ["def", "sum", "return", "for"],
+      "scoring_rubric": {
+        "has_function": 25,
+        "has_loop": 25,
+        "correct_logic": 25,
+        "has_return": 25
+      },
+      "max_score": 100,
+      "time_limit": 60.0
+    },
+    {
+      "id": "code_py_002",
+      "question": "写一个Python函数，判断一个数是否为偶数",
+      "category": "python_basic",
+      "difficulty": "easy",
+      "expected_answers": [],
+      "keywords": ["def", "if", "%", "return", "True", "False"],
+      "scoring_rubric": {
+        "has_function": 20,
+        "has_condition": 20,
+        "modulo_op": 30,
+        "returns_bool": 30
+      },
+      "max_score": 100,
+      "time_limit": 45.0
+    },
+    {
+      "id": "code_py_003",
+      "question": "写一个Python函数，反转一个字符串",
+      "category": "python_basic",
+      "difficulty": "easy",
+      "expected_answers": [],
+      "keywords": ["def", "return", "[::-1]", "reversed"],
+      "scoring_rubric": {
+        "has_function": 25,
+        "reverse_method": 50,
+        "correct_return": 25
+      },
+      "max_score": 100,
+      "time_limit": 45.0
+    },
+    {
+      "id": "code_py_004",
+      "question": "写一个Python函数，找出列表中的最大值",
+      "category": "python_basic",
+      "difficulty": "easy",
+      "expected_answers": [],
+      "keywords": ["def", "max", "return", "if"],
+      "scoring_rubric": {
+        "has_function": 25,
+        "max_logic": 50,
+        "correct_return": 25
+      },
+      "max_score": 100,
+      "time_limit": 45.0
+    },
+    {
+      "id": "code_py_005",
+      "question": "写一个Python类表示一个简单的银行账户，包含存款和取款方法",
+      "category": "python_oop",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["class", "def", "self", "__init__", "deposit", "withdraw"],
+      "scoring_rubric": {
+        "has_class": 20,
+        "has_init": 20,
+        "has_deposit": 20,
+        "has_withdraw": 20,
+        "balance_track": 20
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_py_006",
+      "question": "写一个Python类表示一个学生，包含姓名、年龄和成绩属性",
+      "category": "python_oop",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["class", "def", "self", "__init__", "name", "age", "grade"],
+      "scoring_rubric": {
+        "has_class": 20,
+        "has_init": 30,
+        "has_attributes": 30,
+        "correct_structure": 20
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_alg_001",
+      "question": "写一个函数实现二分查找算法",
+      "category": "algorithm",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["def", "while", "mid", "return", "left", "right"],
+      "scoring_rubric": {
+        "has_function": 15,
+        "binary_search_logic": 40,
+        "handles_boundaries": 25,
+        "correct_return": 20
+      },
+      "max_score": 100,
+      "time_limit": 120.0
+    },
+    {
+      "id": "code_alg_002",
+      "question": "写一个函数判断一个数是否为质数",
+      "category": "algorithm",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["def", "if", "for", "range", "%", "return"],
+      "scoring_rubric": {
+        "has_function": 15,
+        "handles_edge_cases": 20,
+        "divisibility_check": 35,
+        "correct_logic": 30
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_alg_003",
+      "question": "写一个函数实现冒泡排序",
+      "category": "algorithm",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["def", "for", "range", "if", "swap"],
+      "scoring_rubric": {
+        "has_function": 15,
+        "nested_loops": 25,
+        "swap_logic": 30,
+        "correct_algorithm": 30
+      },
+      "max_score": 100,
+      "time_limit": 120.0
+    },
+    {
+      "id": "code_alg_004",
+      "question": "写一个函数计算斐波那契数列的第n项（使用递归）",
+      "category": "algorithm",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["def", "if", "return", "n-1", "n-2"],
+      "scoring_rubric": {
+        "has_function": 15,
+        "base_case": 25,
+        "recursive_call": 35,
+        "correct_logic": 25
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_alg_005",
+      "question": "写一个函数实现快速排序",
+      "category": "algorithm",
+      "difficulty": "hard",
+      "expected_answers": [],
+      "keywords": ["def", "pivot", "left", "right", "return", "recursive"],
+      "scoring_rubric": {
+        "has_function": 10,
+        "pivot_selection": 25,
+        "partition_logic": 35,
+        "recursive_calls": 30
+      },
+      "max_score": 100,
+      "time_limit": 150.0
+    },
+    {
+      "id": "code_ds_001",
+      "question": "写一个简单的栈（Stack）类，包含push、pop方法",
+      "category": "data_structure",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["class", "def", "self", "push", "pop", "list", "__init__"],
+      "scoring_rubric": {
+        "has_class": 15,
+        "has_init": 15,
+        "has_push": 25,
+        "has_pop": 25,
+        "correct_logic": 20
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_ds_002",
+      "question": "写一个类实现队列（Queue）的基本操作",
+      "category": "data_structure",
+      "difficulty": "medium",
+      "expected_answers": [],
+      "keywords": ["class", "def", "enqueue", "dequeue", "self", "list"],
+      "scoring_rubric": {
+        "has_class": 15,
+        "enqueue_method": 30,
+        "dequeue_method": 30,
+        "correct_logic": 25
+      },
+      "max_score": 100,
+      "time_limit": 90.0
+    },
+    {
+      "id": "code_concept_001",
+      "question": "HTTP状态码200表示什么？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["成功", "OK", "请求成功", "成功响应"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_002",
+      "question": "快速排序的平均时间复杂度是多少？",
+      "category": "concept",
+      "difficulty": "medium",
+      "expected_answers": ["O(n log n)", "O(nlogn)", "n log n"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "code_concept_003",
+      "question": "SQL中SELECT语句用于什么？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["查询", "检索", "获取数据", "查询数据"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_004",
+      "question": "什么是API？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["应用程序接口", "接口", "Application Programming Interface"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "code_concept_005",
+      "question": "Git用于什么？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["版本控制", "代码管理", "版本管理"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_006",
+      "question": "REST API中GET请求的作用是什么？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["获取", "查询", "读取", "获取资源"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_007",
+      "question": "什么是数据库索引？",
+      "category": "concept",
+      "difficulty": "medium",
+      "expected_answers": ["加速查询", "索引", "提高查询效率", "快速查找"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "code_concept_008",
+      "question": "HTML是什么的缩写？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["超文本标记语言", "HyperText Markup Language"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_009",
+      "question": "CSS用于什么？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["样式", "布局", "美化", "样式表"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "code_concept_010",
+      "question": "JavaScript是什么类型的语言？",
+      "category": "concept",
+      "difficulty": "easy",
+      "expected_answers": ["脚本", "解释型", "脚本语言", "动态"],
+      "max_score": 100,
+      "time_limit": 15.0
+    }
+  ]
+}

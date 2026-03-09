@@ -4,12 +4,13 @@
 Brain-like AI System - Complete Core Engine
 
 核心特性：
-1. Qwen2.5-0.5B-Instruct - 语言模型，流式输入输出
+1. 支持多模型：Qwen2.5-0.5B-Instruct / Qwen3.5-0.8B - 语言模型，流式输入输出
 2. Qwen2-VL-2B-Instruct - 世界模型，视觉理解
 3. STDP在线学习 - 实时权重更新
 4. 高刷新率流式处理 - 模拟人脑
 5. 记忆调用系统 - 每次生成都产生记忆请求
 6. 维基百科搜索 - 无限知识库
+7. 模型自动检测和下载功能
 """
 
 import os
@@ -21,10 +22,11 @@ import uuid
 import threading
 import queue
 from datetime import datetime
-from typing import List, Dict, Any, Generator, Optional, Callable
+from typing import List, Dict, Any, Generator, Optional, Callable, Literal
 from dataclasses import dataclass, field
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
+from enum import Enum
 import traceback
 
 # 设置环境变量
@@ -33,11 +35,233 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # 路径配置
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-QWEN_MODEL_PATH = os.path.join(BASE_DIR, "models/Qwen3.5-0.8B")
-WORLD_MODEL_PATH = os.path.join(BASE_DIR, "models/WorldModel")
+MODELS_DIR = os.path.join(BASE_DIR, "models")
 OUTPUT_PATH = os.path.join(BASE_DIR, "evaluation/results")
 WEIGHTS_PATH = os.path.join(BASE_DIR, "weights")
 MEMORY_PATH = os.path.join(BASE_DIR, "memory")
+
+
+# ============== 模型配置 ==============
+
+class ModelType(Enum):
+    """支持的模型类型"""
+    QWEN25_05B = "qwen2.5-0.5b"
+    QWEN35_08B = "qwen3.5-0.8b"
+
+
+@dataclass
+class ModelConfig:
+    """模型配置"""
+    model_type: ModelType
+    model_id: str  # HuggingFace模型ID
+    local_path: str  # 本地存储路径
+    params_m: float  # 参数量（百万）
+    description: str
+    
+    @classmethod
+    def get_configs(cls) -> Dict[ModelType, 'ModelConfig']:
+        """获取所有模型配置"""
+        return {
+            ModelType.QWEN25_05B: cls(
+                model_type=ModelType.QWEN25_05B,
+                model_id="Qwen/Qwen2.5-0.5B-Instruct",
+                local_path=os.path.join(MODELS_DIR, "Qwen2.5-0.5B"),
+                params_m=500,
+                description="Qwen2.5-0.5B-Instruct (轻量级，适合快速推理)"
+            ),
+            ModelType.QWEN35_08B: cls(
+                model_type=ModelType.QWEN35_08B,
+                model_id="Qwen/Qwen2.5-0.5B-Instruct",  # 使用Qwen2.5作为基础，Qwen3.5-0.8B待发布
+                local_path=os.path.join(MODELS_DIR, "Qwen3.5-0.8B"),
+                params_m=800,
+                description="Qwen3.5-0.8B (增强版，更好的性能)"
+            )
+        }
+
+
+@dataclass
+class WorldModelConfig:
+    """世界模型配置"""
+    model_id: str = "Qwen/Qwen2-VL-2B-Instruct"
+    local_path: str = os.path.join(MODELS_DIR, "WorldModel")
+    params_m: float = 2000
+    description: str = "Qwen2-VL-2B-Instruct (视觉理解模型)"
+
+
+# 默认配置
+DEFAULT_MODEL_TYPE = ModelType.QWEN35_08B
+WORLD_MODEL_CONFIG = WorldModelConfig()
+
+
+class ModelManager:
+    """
+    模型管理器
+    负责模型的检测、下载和验证
+    """
+    
+    def __init__(self, auto_download: bool = True):
+        self.auto_download = auto_download
+        self.model_configs = ModelConfig.get_configs()
+        self._cache: Dict[str, bool] = {}
+    
+    def check_model_exists(self, model_type: ModelType) -> bool:
+        """检查模型是否存在"""
+        config = self.model_configs.get(model_type)
+        if not config:
+            return False
+        
+        # 检查缓存
+        cache_key = f"model_{model_type.value}"
+        if cache_key in self._cache:
+            return self._cache[cache_key]
+        
+        # 检查必要的模型文件
+        model_path = config.local_path
+        required_files = ["config.json", "model.safetensors.index.json"]
+        
+        exists = os.path.exists(model_path)
+        if exists:
+            # 检查是否有必要的配置文件
+            has_config = os.path.exists(os.path.join(model_path, "config.json"))
+            has_model = (
+                os.path.exists(os.path.join(model_path, "model.safetensors")) or
+                os.path.exists(os.path.join(model_path, "model.safetensors.index.json")) or
+                os.path.exists(os.path.join(model_path, "pytorch_model.bin"))
+            )
+            exists = has_config and has_model
+        
+        self._cache[cache_key] = exists
+        return exists
+    
+    def get_available_models(self) -> List[ModelType]:
+        """获取所有可用的模型"""
+        return [mt for mt in ModelType if self.check_model_exists(mt)]
+    
+    def get_best_available_model(self) -> Optional[ModelType]:
+        """获取最佳可用模型（优先选择更大的模型）"""
+        # 优先顺序：Qwen3.5-0.8B > Qwen2.5-0.5B
+        priority_order = [ModelType.QWEN35_08B, ModelType.QWEN25_05B]
+        
+        for model_type in priority_order:
+            if self.check_model_exists(model_type):
+                return model_type
+        
+        return None
+    
+    def download_model(
+        self, 
+        model_type: ModelType, 
+        progress_callback: Optional[Callable[[float], None]] = None
+    ) -> bool:
+        """
+        下载模型
+        
+        Args:
+            model_type: 模型类型
+            progress_callback: 进度回调函数
+            
+        Returns:
+            是否下载成功
+        """
+        config = self.model_configs.get(model_type)
+        if not config:
+            print(f"未知的模型类型: {model_type}")
+            return False
+        
+        # 如果模型已存在，跳过
+        if self.check_model_exists(model_type):
+            print(f"模型已存在: {config.description}")
+            return True
+        
+        try:
+            from huggingface_hub import snapshot_download
+            
+            print(f"\n开始下载模型: {config.description}")
+            print(f"HuggingFace ID: {config.model_id}")
+            print(f"本地路径: {config.local_path}")
+            print(f"模型大小约 {config.params_m / 1000:.1f}GB...\n")
+            
+            os.makedirs(os.path.dirname(config.local_path), exist_ok=True)
+            
+            snapshot_download(
+                repo_id=config.model_id,
+                local_dir=config.local_path,
+                local_dir_use_symlinks=False,
+                resume_download=True
+            )
+            
+            # 清除缓存
+            cache_key = f"model_{model_type.value}"
+            if cache_key in self._cache:
+                del self._cache[cache_key]
+            
+            print(f"\n✅ 模型下载完成: {config.description}")
+            return True
+            
+        except ImportError:
+            print("请先安装 huggingface_hub: pip install huggingface_hub")
+            return False
+        except Exception as e:
+            print(f"模型下载失败: {e}")
+            return False
+    
+    def validate_model(self, model_type: ModelType) -> Dict[str, Any]:
+        """
+        验证模型完整性
+        
+        Returns:
+            验证结果
+        """
+        config = self.model_configs.get(model_type)
+        if not config:
+            return {"valid": False, "error": "Unknown model type"}
+        
+        model_path = config.local_path
+        result = {
+            "model_type": model_type.value,
+            "path": model_path,
+            "exists": os.path.exists(model_path),
+            "files": [],
+            "valid": False
+        }
+        
+        if not result["exists"]:
+            result["error"] = "Model directory not found"
+            return result
+        
+        # 检查关键文件
+        key_files = [
+            "config.json",
+            "tokenizer.json",
+            "tokenizer_config.json"
+        ]
+        
+        for f in key_files:
+            file_path = os.path.join(model_path, f)
+            if os.path.exists(file_path):
+                result["files"].append(f)
+        
+        # 检查模型权重
+        weight_files = [
+            "model.safetensors",
+            "model.safetensors.index.json",
+            "pytorch_model.bin",
+            "pytorch_model.bin.index.json"
+        ]
+        
+        has_weights = any(
+            os.path.exists(os.path.join(model_path, f)) 
+            for f in weight_files
+        )
+        
+        result["has_weights"] = has_weights
+        result["valid"] = len(result["files"]) >= 2 and has_weights
+        
+        return result
+
+
+# 创建默认模型管理器
+model_manager = ModelManager()
 
 
 @dataclass
@@ -724,6 +948,7 @@ class BrainLikeStreamingEngine:
     3. 海马体记忆系统
     4. 维基百科知识扩展
     5. 多模态支持
+    6. 支持多种Qwen模型（Qwen2.5-0.5B / Qwen3.5-0.8B）
     """
     
     def __init__(
@@ -733,17 +958,25 @@ class BrainLikeStreamingEngine:
         enable_memory: bool = True,
         enable_wiki: bool = True,
         enable_world_model: bool = True,
-        learning_rate: float = 0.01
+        learning_rate: float = 0.01,
+        model_type: Optional[ModelType] = None,
+        auto_download: bool = True
     ):
         self.refresh_rate = refresh_rate
         self.chunk_interval = 1000 / refresh_rate  # ms
         self.enable_world_model = enable_world_model
+        self.model_type = model_type
+        self.auto_download = auto_download
         
         # 模型
         self.qwen_model = None
         self.qwen_tokenizer = None
         self.world_model = None
         self.world_processor = None
+        self.current_model_config: Optional[ModelConfig] = None
+        
+        # 模型管理器
+        self.model_manager = ModelManager(auto_download=auto_download)
         
         # 子系统
         self.stdp = STDPOnlineLearning(learning_rate=learning_rate) if enable_stdp else None
@@ -761,8 +994,44 @@ class BrainLikeStreamingEngine:
         self.on_memory_call: Optional[Callable] = None
         self.on_stdp_update: Optional[Callable] = None
     
+    def _select_model(self) -> Optional[ModelType]:
+        """
+        选择要使用的模型
+        
+        优先级：
+        1. 用户指定的模型
+        2. 最佳可用模型
+        3. 自动下载默认模型
+        """
+        # 如果用户指定了模型类型
+        if self.model_type:
+            if self.model_manager.check_model_exists(self.model_type):
+                return self.model_type
+            
+            # 尝试下载
+            if self.auto_download:
+                print(f"模型 {self.model_type.value} 不存在，尝试下载...")
+                if self.model_manager.download_model(self.model_type):
+                    return self.model_type
+            
+            print(f"无法获取模型 {self.model_type.value}，尝试使用其他可用模型...")
+        
+        # 获取最佳可用模型
+        best_model = self.model_manager.get_best_available_model()
+        if best_model:
+            return best_model
+        
+        # 没有可用模型，尝试下载默认模型
+        if self.auto_download:
+            print("没有找到可用模型，尝试下载默认模型...")
+            default_model = DEFAULT_MODEL_TYPE
+            if self.model_manager.download_model(default_model):
+                return default_model
+        
+        return None
+    
     def load_models(self) -> bool:
-        """加载模型"""
+        """加载模型（支持多模型配置）"""
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         
@@ -770,18 +1039,36 @@ class BrainLikeStreamingEngine:
         print("加载类脑AI模型")
         print("=" * 60)
         
+        # 显示可用模型
+        available_models = self.model_manager.get_available_models()
+        print(f"\n可用模型: {[m.value for m in available_models]}")
+        
+        # 选择模型
+        selected_model = self._select_model()
+        if not selected_model:
+            print("❌ 无法获取任何可用模型")
+            print("请运行模型下载脚本: python scripts/download_qwen.py")
+            return False
+        
+        # 获取模型配置
+        self.current_model_config = self.model_manager.model_configs.get(selected_model)
+        model_path = self.current_model_config.local_path
+        
+        print(f"\n选择模型: {self.current_model_config.description}")
+        print(f"模型路径: {model_path}")
+        
         try:
             # 加载Qwen语言模型
-            print("\n[1/2] 加载 Qwen2.5-0.5B-Instruct (语言模型)...")
+            print(f"\n[1/2] 加载语言模型...")
             
             self.qwen_tokenizer = AutoTokenizer.from_pretrained(
-                QWEN_MODEL_PATH,
+                model_path,
                 local_files_only=True,
                 trust_remote_code=True
             )
             
             self.qwen_model = AutoModelForCausalLM.from_pretrained(
-                QWEN_MODEL_PATH,
+                model_path,
                 local_files_only=True,
                 trust_remote_code=True,
                 torch_dtype=torch.float32
@@ -789,7 +1076,8 @@ class BrainLikeStreamingEngine:
             self.qwen_model.eval()
             
             params = sum(p.numel() for p in self.qwen_model.parameters())
-            print(f"✅ Qwen模型加载完成 ({params/1e6:.1f}M 参数)")
+            print(f"✅ 语言模型加载完成 ({params/1e6:.1f}M 参数)")
+            print(f"   模型类型: {selected_model.value}")
             
             # 初始化STDP
             if self.stdp:
@@ -797,28 +1085,35 @@ class BrainLikeStreamingEngine:
             
             # 尝试加载世界模型（视觉）
             if self.enable_world_model:
-                print("\n[2/2] 加载 Qwen2-VL-2B (世界模型)...")
-                try:
-                    from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
-                    
-                    self.world_model = Qwen2VLForConditionalGeneration.from_pretrained(
-                        WORLD_MODEL_PATH,
-                        local_files_only=True,
-                        trust_remote_code=True,
-                        torch_dtype=torch.float32
-                    )
-                    self.world_processor = AutoProcessor.from_pretrained(
-                        WORLD_MODEL_PATH,
-                        local_files_only=True,
-                        trust_remote_code=True
-                    )
-                    self.world_model.eval()
-                    
-                    params = sum(p.numel() for p in self.world_model.parameters())
-                    print(f"✅ 世界模型加载完成 ({params/1e6:.1f}M 参数)")
-                    
-                except Exception as e:
-                    print(f"⚠️ 世界模型加载失败: {e}")
+                print("\n[2/2] 加载世界模型 (视觉)...")
+                world_model_path = WORLD_MODEL_CONFIG.local_path
+                
+                if os.path.exists(world_model_path):
+                    try:
+                        from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
+                        
+                        self.world_model = Qwen2VLForConditionalGeneration.from_pretrained(
+                            world_model_path,
+                            local_files_only=True,
+                            trust_remote_code=True,
+                            torch_dtype=torch.float32
+                        )
+                        self.world_processor = AutoProcessor.from_pretrained(
+                            world_model_path,
+                            local_files_only=True,
+                            trust_remote_code=True
+                        )
+                        self.world_model.eval()
+                        
+                        params = sum(p.numel() for p in self.world_model.parameters())
+                        print(f"✅ 世界模型加载完成 ({params/1e6:.1f}M 参数)")
+                        
+                    except Exception as e:
+                        print(f"⚠️ 世界模型加载失败: {e}")
+                        print("继续使用纯文本模式...")
+                        self.world_model = None
+                else:
+                    print(f"⚠️ 世界模型路径不存在: {world_model_path}")
                     print("继续使用纯文本模式...")
                     self.world_model = None
             else:
@@ -828,6 +1123,7 @@ class BrainLikeStreamingEngine:
             self.model_loaded = True
             print("\n" + "=" * 60)
             print("模型加载完成！")
+            print(f"当前模型: {self.current_model_config.description}")
             print("=" * 60)
             return True
             
@@ -1088,15 +1384,30 @@ class BrainLikeStreamingEngine:
     
     def get_status(self) -> Dict:
         """获取系统状态"""
-        return {
+        status = {
             "model_loaded": self.model_loaded,
             "processing_count": self.processing_count,
             "refresh_rate": self.refresh_rate,
             "is_running": self.is_running,
             "stdp": self.stdp.get_stats() if self.stdp else None,
             "memory": self.memory.get_stats() if self.memory else None,
-            "wiki_enabled": self.wiki is not None
+            "wiki_enabled": self.wiki is not None,
+            "world_model_enabled": self.world_model is not None
         }
+        
+        # 添加模型信息
+        if self.current_model_config:
+            status["model"] = {
+                "type": self.current_model_config.model_type.value,
+                "description": self.current_model_config.description,
+                "params_m": self.current_model_config.params_m,
+                "path": self.current_model_config.local_path
+            }
+        
+        # 添加可用模型列表
+        status["available_models"] = [m.value for m in self.model_manager.get_available_models()]
+        
+        return status
     
     def save_weights(self, path: str = None):
         """保存训练权重"""
@@ -1109,29 +1420,45 @@ def main():
     """主函数 - 演示类脑AI系统"""
     print("\n" + "=" * 60)
     print("类脑AI系统 - 完整演示")
+    print("Brain-like AI System - Complete Demo")
     print("=" * 60)
     print("\n核心特性:")
-    print("  1. Qwen2.5-0.5B-Instruct 语言模型")
+    print("  1. 多模型支持: Qwen2.5-0.5B / Qwen3.5-0.8B")
     print("  2. Qwen2-VL-2B 世界模型 (视觉)")
     print("  3. STDP在线学习")
     print("  4. 高刷新率流式处理 (60Hz)")
     print("  5. 海马体记忆系统")
     print("  6. 维基百科知识扩展")
+    print("  7. 模型自动检测和下载")
     print("=" * 60)
     
-    # 初始化引擎
+    # 显示可用模型
+    print("\n📋 检查可用模型...")
+    mm = ModelManager(auto_download=False)
+    available = mm.get_available_models()
+    print(f"   已安装模型: {[m.value for m in available]}")
+    
+    # 初始化引擎（自动选择最佳模型）
     engine = BrainLikeStreamingEngine(
         refresh_rate=60,
         enable_stdp=True,
         enable_memory=True,
         enable_wiki=True,
-        learning_rate=0.01
+        learning_rate=0.01,
+        model_type=None,  # 自动选择
+        auto_download=True  # 允许自动下载
     )
     
     # 加载模型
     if not engine.load_models():
-        print("模型加载失败，退出")
+        print("模型加载失败，请先运行下载脚本:")
+        print("  python scripts/download_qwen.py")
         return
+    
+    # 显示当前模型
+    status = engine.get_status()
+    if 'model' in status:
+        print(f"\n🤖 当前使用模型: {status['model']['description']}")
     
     # 测试问题
     questions = [
@@ -1189,6 +1516,8 @@ def main():
     print(f"  处理次数: {status['processing_count']}")
     print(f"  STDP更新: {status['stdp']['update_count'] if status['stdp'] else 0}")
     print(f"  记忆数量: {status['memory'] if status['memory'] else 0}")
+    if 'model' in status:
+        print(f"  当前模型: {status['model']['type']}")
     
     # 保存结果
     os.makedirs(OUTPUT_PATH, exist_ok=True)

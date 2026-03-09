@@ -1,0 +1,279 @@
+{
+  "dimension": "math",
+  "description": "数学能力测试数据集",
+  "version": "1.0",
+  "categories": {
+    "arithmetic": "算术运算",
+    "algebra": "代数运算",
+    "geometry": "几何运算",
+    "sequence": "数列与模式"
+  },
+  "difficulty_levels": {
+    "easy": 1,
+    "medium": 2,
+    "hard": 3
+  },
+  "questions": [
+    {
+      "id": "math_arith_001",
+      "question": "计算: 123 + 456 = ?",
+      "category": "arithmetic",
+      "difficulty": "easy",
+      "expected_answers": ["579"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_arith_002",
+      "question": "计算: 1000 - 367 = ?",
+      "category": "arithmetic",
+      "difficulty": "easy",
+      "expected_answers": ["633"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_arith_003",
+      "question": "计算: 25 × 16 = ?",
+      "category": "arithmetic",
+      "difficulty": "easy",
+      "expected_answers": ["400"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_arith_004",
+      "question": "计算: 144 ÷ 12 = ?",
+      "category": "arithmetic",
+      "difficulty": "easy",
+      "expected_answers": ["12"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_arith_005",
+      "question": "计算: 15 × 15 = ?",
+      "category": "arithmetic",
+      "difficulty": "medium",
+      "expected_answers": ["225"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_arith_006",
+      "question": "计算: 99 × 99 = ?",
+      "category": "arithmetic",
+      "difficulty": "medium",
+      "expected_answers": ["9801"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_arith_007",
+      "question": "计算: 2的10次方等于多少？",
+      "category": "arithmetic",
+      "difficulty": "medium",
+      "expected_answers": ["1024"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_arith_008",
+      "question": "计算: 3的5次方等于多少？",
+      "category": "arithmetic",
+      "difficulty": "medium",
+      "expected_answers": ["243"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_arith_009",
+      "question": "计算: 17 × 23 = ?",
+      "category": "arithmetic",
+      "difficulty": "medium",
+      "expected_answers": ["391"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_arith_010",
+      "question": "计算: 256 ÷ 16 = ?",
+      "category": "arithmetic",
+      "difficulty": "easy",
+      "expected_answers": ["16"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_alg_001",
+      "question": "解方程: 2x + 5 = 13，x等于多少？",
+      "category": "algebra",
+      "difficulty": "easy",
+      "expected_answers": ["4", "x=4", "x = 4"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_alg_002",
+      "question": "解方程: 3x - 7 = 8，x等于多少？",
+      "category": "algebra",
+      "difficulty": "easy",
+      "expected_answers": ["5", "x=5", "x = 5"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_alg_003",
+      "question": "解方程: x² = 144，x等于多少？",
+      "category": "algebra",
+      "difficulty": "medium",
+      "expected_answers": ["12", "-12", "±12", "正负12"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_alg_004",
+      "question": "如果 y = 2x + 3，当 x = 5 时，y 等于多少？",
+      "category": "algebra",
+      "difficulty": "easy",
+      "expected_answers": ["13", "y=13", "y = 13"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_alg_005",
+      "question": "解方程: 5x + 3 = 2x + 12，x等于多少？",
+      "category": "algebra",
+      "difficulty": "medium",
+      "expected_answers": ["3", "x=3", "x = 3"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_alg_006",
+      "question": "解不等式: 2x - 4 > 6，x的范围是什么？",
+      "category": "algebra",
+      "difficulty": "hard",
+      "expected_answers": ["x>5", "x > 5", "大于5"],
+      "max_score": 100,
+      "time_limit": 25.0
+    },
+    {
+      "id": "math_alg_007",
+      "question": "解方程: x² - 5x + 6 = 0，x等于多少？",
+      "category": "algebra",
+      "difficulty": "hard",
+      "expected_answers": ["2", "3", "x=2", "x=3", "2或3"],
+      "max_score": 100,
+      "time_limit": 30.0
+    },
+    {
+      "id": "math_geo_001",
+      "question": "一个三角形的底是6厘米，高是4厘米，面积是多少平方厘米？",
+      "category": "geometry",
+      "difficulty": "easy",
+      "expected_answers": ["12"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_geo_002",
+      "question": "一个圆的半径是5厘米，求面积（π取3.14）",
+      "category": "geometry",
+      "difficulty": "medium",
+      "expected_answers": ["78.5", "78.5平方厘米"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_geo_003",
+      "question": "一个正方形的边长是8厘米，周长是多少厘米？",
+      "category": "geometry",
+      "difficulty": "easy",
+      "expected_answers": ["32"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_geo_004",
+      "question": "一个长方形的长是10厘米，宽是6厘米，面积是多少平方厘米？",
+      "category": "geometry",
+      "difficulty": "easy",
+      "expected_answers": ["60"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "math_geo_005",
+      "question": "一个圆的周长是31.4厘米（π取3.14），半径是多少厘米？",
+      "category": "geometry",
+      "difficulty": "medium",
+      "expected_answers": ["5"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_geo_006",
+      "question": "直角三角形的两条直角边分别是3和4，斜边是多少？",
+      "category": "geometry",
+      "difficulty": "medium",
+      "expected_answers": ["5"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_geo_007",
+      "question": "一个正方体的棱长是4厘米，体积是多少立方厘米？",
+      "category": "geometry",
+      "difficulty": "easy",
+      "expected_answers": ["64"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_seq_001",
+      "question": "斐波那契数列第10项是多少？（数列从1,1开始）",
+      "category": "sequence",
+      "difficulty": "hard",
+      "expected_answers": ["55"],
+      "max_score": 100,
+      "time_limit": 30.0
+    },
+    {
+      "id": "math_seq_002",
+      "question": "数列 1, 2, 4, 8, 16, ? 的下一项是什么？",
+      "category": "sequence",
+      "difficulty": "easy",
+      "expected_answers": ["32"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_seq_003",
+      "question": "数列 2, 6, 12, 20, 30, ? 的下一项是什么？",
+      "category": "sequence",
+      "difficulty": "medium",
+      "expected_answers": ["42"],
+      "max_score": 100,
+      "time_limit": 20.0
+    },
+    {
+      "id": "math_seq_004",
+      "question": "数列 1, 1, 2, 3, 5, 8, ? 的下一项是什么？",
+      "category": "sequence",
+      "difficulty": "easy",
+      "expected_answers": ["13"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "math_seq_005",
+      "question": "数列 3, 6, 9, 12, 15, ? 的下一项是什么？",
+      "category": "sequence",
+      "difficulty": "easy",
+      "expected_answers": ["18"],
+      "max_score": 100,
+      "time_limit": 10.0
+    }
+  ]
+}

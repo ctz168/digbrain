@@ -1,0 +1,282 @@
+{
+  "dimension": "knowledge",
+  "description": "知识问答测试数据集",
+  "version": "1.0",
+  "categories": {
+    "geography": "地理知识",
+    "science": "科学知识",
+    "history": "历史知识",
+    "literature": "文学知识",
+    "physics": "物理知识",
+    "chemistry": "化学知识",
+    "biology": "生物知识"
+  },
+  "difficulty_levels": {
+    "easy": 1,
+    "medium": 2,
+    "hard": 3
+  },
+  "questions": [
+    {
+      "id": "know_geo_001",
+      "question": "中国的首都是哪个城市？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["北京"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_002",
+      "question": "世界上最长的河流是哪条？",
+      "category": "geography",
+      "difficulty": "medium",
+      "expected_answers": ["尼罗河", "亚马逊河"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "know_geo_003",
+      "question": "中国的最长河流是哪条？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["长江"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_004",
+      "question": "世界上最高的山峰是哪座？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["珠穆朗玛峰", "珠峰"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_005",
+      "question": "美国的首都是哪个城市？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["华盛顿", "华盛顿特区"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_006",
+      "question": "日本的首都是哪个城市？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["东京"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_007",
+      "question": "世界上面积最大的国家是哪个？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["俄罗斯"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_geo_008",
+      "question": "世界上人口最多的国家是哪个？",
+      "category": "geography",
+      "difficulty": "easy",
+      "expected_answers": ["中国", "印度"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_001",
+      "question": "光在真空中的传播速度大约是多少？",
+      "category": "science",
+      "difficulty": "medium",
+      "expected_answers": ["30万公里每秒", "299792458米每秒", "3×10^8米每秒", "30万公里"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "know_sci_002",
+      "question": "水的化学式是什么？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["H2O", "H₂O"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_003",
+      "question": "地球绕太阳公转一周需要多长时间？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["一年", "365天", "365.25天"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_004",
+      "question": "太阳系中最大的行星是哪颗？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["木星"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_005",
+      "question": "DNA的全称是什么？",
+      "category": "science",
+      "difficulty": "medium",
+      "expected_answers": ["脱氧核糖核酸"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "know_sci_006",
+      "question": "人体最大的器官是什么？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["皮肤"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_007",
+      "question": "声音在真空中能传播吗？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["不能", "不可以"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_008",
+      "question": "水的沸点是多少摄氏度？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["100", "100度", "100℃"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_009",
+      "question": "光合作用产生什么气体？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["氧气", "O2"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_sci_010",
+      "question": "地球有几颗天然卫星？",
+      "category": "science",
+      "difficulty": "easy",
+      "expected_answers": ["1", "一颗", "月球"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_hist_001",
+      "question": "《红楼梦》的作者是谁？",
+      "category": "history",
+      "difficulty": "easy",
+      "expected_answers": ["曹雪芹"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_hist_002",
+      "question": "谁发明了电话？",
+      "category": "history",
+      "difficulty": "easy",
+      "expected_answers": ["贝尔", "亚历山大·贝尔"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_hist_003",
+      "question": "相对论是谁提出的？",
+      "category": "history",
+      "difficulty": "easy",
+      "expected_answers": ["爱因斯坦"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_hist_004",
+      "question": "第一次世界大战开始于哪一年？",
+      "category": "history",
+      "difficulty": "medium",
+      "expected_answers": ["1914"],
+      "max_score": 100,
+      "time_limit": 15.0
+    },
+    {
+      "id": "know_hist_005",
+      "question": "中国第一个皇帝是谁？",
+      "category": "history",
+      "difficulty": "easy",
+      "expected_answers": ["秦始皇", "嬴政"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_hist_006",
+      "question": "造纸术是谁发明的？",
+      "category": "history",
+      "difficulty": "easy",
+      "expected_answers": ["蔡伦"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_lit_001",
+      "question": "《三国演义》的作者是谁？",
+      "category": "literature",
+      "difficulty": "easy",
+      "expected_answers": ["罗贯中"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_lit_002",
+      "question": "《西游记》的作者是谁？",
+      "category": "literature",
+      "difficulty": "easy",
+      "expected_answers": ["吴承恩"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_lit_003",
+      "question": "诗仙是指哪位诗人？",
+      "category": "literature",
+      "difficulty": "easy",
+      "expected_answers": ["李白"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_lit_004",
+      "question": "诗圣是指哪位诗人？",
+      "category": "literature",
+      "difficulty": "easy",
+      "expected_answers": ["杜甫"],
+      "max_score": 100,
+      "time_limit": 10.0
+    },
+    {
+      "id": "know_lit_005",
+      "question": "《水浒传》的作者是谁？",
+      "category": "literature",
+      "difficulty": "easy",
+      "expected_answers": ["施耐庵"],
+      "max_score": 100,
+      "time_limit": 10.0
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 Brain-like AI System - High-Refresh Streaming Core
 
 核心特性：
-1. Qwen3.5-0.8B + 世界模型 双模型架构
+1. 支持多模型：Qwen2.5-0.5B / Qwen3.5-0.8B + 世界模型
 2. 60Hz+ 高刷新率流式处理
 3. 每次处理极小数据块（类似人脑神经元脉冲）
 4. STDP在线学习，实时权重更新
@@ -27,10 +27,26 @@ import numpy as np
 os.environ["CUDA_VISIBLE_DEVICES"] = ""
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-# 模型路径
-QWEN_MODEL_PATH = "/home/z/my-project/brain-like-ai/models/Qwen3.5-0.8B"
-WORLD_MODEL_PATH = "/home/z/my-project/brain-like-ai/models/WorldModel"
-OUTPUT_PATH = "/home/z/my-project/brain-like-ai/weights"
+# 导入模型配置
+try:
+    from .brain_engine import (
+        ModelType, ModelConfig, WorldModelConfig, 
+        ModelManager, DEFAULT_MODEL_TYPE, WORLD_MODEL_CONFIG, MODELS_DIR
+    )
+    USE_NEW_CONFIG = True
+except ImportError:
+    # 回退配置
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    MODELS_DIR = os.path.join(BASE_DIR, "models")
+    USE_NEW_CONFIG = False
+
+# 路径配置（向后兼容）
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_PATH = os.path.join(BASE_DIR, "weights")
+
+# 默认模型路径（向后兼容）
+QWEN_MODEL_PATH = os.path.join(MODELS_DIR, "Qwen3.5-0.8B")
+WORLD_MODEL_PATH = os.path.join(MODELS_DIR, "WorldModel")
 
 # ============== 数据结构 ==============
 

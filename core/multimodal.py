@@ -3,6 +3,7 @@
 Multimodal Processing Module
 
 支持文本、图像、视频的统一处理
+支持多种模型配置（Qwen2.5-0.5B / Qwen3.5-0.8B）
 """
 
 import os
@@ -11,6 +12,16 @@ import base64
 from typing import Generator, Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass
 from io import BytesIO
+
+# 导入模型配置
+try:
+    from .brain_engine import WORLD_MODEL_CONFIG, MODELS_DIR
+    DEFAULT_MODEL_PATH = WORLD_MODEL_CONFIG.local_path
+except ImportError:
+    # 回退配置
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    MODELS_DIR = os.path.join(BASE_DIR, "models")
+    DEFAULT_MODEL_PATH = os.path.join(MODELS_DIR, "WorldModel")
 
 
 @dataclass
@@ -36,7 +47,7 @@ class MultimodalProcessor:
     
     支持：
     1. 文本处理
-    2. 图像理解
+    2. 图像理解（需要世界模型）
     3. 视频流处理（逐帧）
     4. 音频处理
     """
@@ -46,9 +57,9 @@ class MultimodalProcessor:
         初始化多模态处理器
         
         Args:
-            model_path: 模型路径
+            model_path: 模型路径（默认使用配置中的世界模型路径）
         """
-        self.model_path = model_path
+        self.model_path = model_path or DEFAULT_MODEL_PATH
         self.model = None
         self.processor = None
         self.initialized = False
@@ -58,15 +69,24 @@ class MultimodalProcessor:
         try:
             # 尝试加载Qwen-VL模型
             print("初始化多模态处理器...")
+            print(f"模型路径: {self.model_path}")
             
             # 检查是否有模型
             if self.model_path and os.path.exists(self.model_path):
-                print(f"模型路径: {self.model_path}")
-                self.initialized = True
-                print("✅ 多模态处理器初始化完成")
-                return True
+                # 检查关键文件
+                config_path = os.path.join(self.model_path, "config.json")
+                if os.path.exists(config_path):
+                    print(f"✅ 找到多模态模型配置")
+                    self.initialized = True
+                    print("✅ 多模态处理器初始化完成")
+                    return True
+                else:
+                    print("⚠️ 多模态模型配置不完整，使用基础模式")
+                    self.initialized = True
+                    return True
             else:
                 print("⚠️ 多模态模型未找到，使用基础模式")
+                print(f"   提示: 运行 python scripts/download_qwen.py --world 下载世界模型")
                 self.initialized = True
                 return True
                 
