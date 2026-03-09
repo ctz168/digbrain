@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-03-09T00:12:52.178293",
+  "model": "Qwen3.5-0.8B",
+  "results": [
+    {
+      "question": "请解释什么是死锁？",
+      "response": "<think>\nHere's a thinking process that leads to the explanation of a deadlock:\n\n1.  **Analyze the Request:**\n    *   **User's Request:** The user is asking for an explanation of \"Deadlock\" (死锁 - \"shís",
+      "stats": {
+        "tokens": 348,
+        "time": 43.73350405693054,
+        "speed": 7.957286009988758
+      }
+    },
+    {
+      "question": "TCP三次握手是什么？",
+      "response": "<think>\n\n</think>\n\n**TCP 三次握手**（Three-Handshake）是 TCP（传输控制协议）协议中用于**建立连接**的**三次握手**过程。\n\n简单来说，它是由客户端和服务器进行的一种**身份和身份验证**过程，用于验证对方是否是一个可信的服务器，并确认对方是否同意建立连接。\n\n### 核心流程：\n\n1.  **客户端发起**：\n    *   **客户端发起**：",
+      "stats": {
+        "tokens": 208,
+        "time": 43.5907621383667,
+        "speed": 4.771653208075649
+      }
+    },
+    {
+      "question": "量子纠缠是什么？",
+      "response": "<think>\n\n</think>\n\n**量子纠缠**（Quantum Entanglement）是量子力学中一个极其著名且反直觉的概念，它揭示了**量子世界与经典世界（经典世界）之间的一种特殊且不可见的联系**。\n\n简单来说，量子纠缠是一种**“不可分割的关联”**。\n\n简单来说，它的核心含义是：**当两个或多个粒子被“强关联”（即“强相关”）时，它们的状态会瞬间关联起来，以至于无论它们相隔多远",
+      "stats": {
+        "tokens": 201,
+        "time": 43.528841733932495,
+        "speed": 4.617628036799159
+      }
+    }
+  ],
+  "stdp": {
+    "updates": 300,
+    "ltp": 300,
+    "ltd": 0
+  },
+  "memory": {
+    "count": 3,
+    "searches": 3
+  }
+}
