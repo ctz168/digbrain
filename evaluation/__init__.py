@@ -1,7 +1,8 @@
 """
 评估模块
+Evaluation Module
 """
 
-from .benchmark import run_benchmark, RealModelEvaluator
+from .benchmark import BenchmarkSuite, StreamingBenchmark, AssessmentResult
 
-__all__ = ['run_benchmark', 'RealModelEvaluator']
+__all__ = ['BenchmarkSuite', 'StreamingBenchmark', 'AssessmentResult']

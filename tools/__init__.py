@@ -1,7 +1,8 @@
 """
 工具模块
+Tools Module
 """
 
-from .wiki_search import WikipediaSearch, WebSearch, ToolManager
+from .web_tools import WikipediaSearch, WebSearch, ToolManager
 
 __all__ = ['WikipediaSearch', 'WebSearch', 'ToolManager']

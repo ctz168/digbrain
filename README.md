@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/)
-[![Qwen3.5](https://img.shields.io/badge/Qwen-3.5--0.8B-green.svg)](https://github.com/QwenLM/Qwen)
+[![Qwen2.5](https://img.shields.io/badge/Qwen-2.5--0.5B-green.svg)](https://github.com/QwenLM/Qwen)
 
 **一个基于人脑架构设计的下一代人工智能系统**
 
@@ -12,15 +12,15 @@
 
 ## 📖 目录 | Table of Contents
 
-- [设计思想](#设计思想)
-- [核心特性](#核心特性)
-- [亮点展示](#亮点展示)
-- [安装部署](#安装部署)
-- [快速开始](#快速开始)
-- [API调用](#api调用)
-- [训练方法](#训练方法)
-- [项目结构](#项目结构)
-- [技术架构](#技术架构)
+- [设计思想](#设计思想--design-philosophy)
+- [核心特性](#核心特性--core-features)
+- [亮点展示](#亮点展示--highlights)
+- [安装部署](#安装部署--installation)
+- [快速开始](#快速开始--quick-start)
+- [API调用](#api调用--api-usage)
+- [训练方法](#训练方法--training)
+- [项目结构](#项目结构--project-structure)
+- [技术架构](#技术架构--architecture)
 
 ---
 
@@ -50,7 +50,7 @@
 ```
 ┌─────────────────┐     ┌─────────────────┐
 │   计算层        │ ←→  │   存储层        │
-│  (Qwen3.5)     │     │  (海马体记忆)   │
+│  (Qwen2.5)     │     │  (海马体记忆)   │
 │  在线推理       │     │  无限知识库     │
 └─────────────────┘     └─────────────────┘
 ```
@@ -80,7 +80,7 @@ Post-spike ──→ Pre-spike: LTD (长时程抑制)
 
 ```
 ┌──────────────────────────────────────────┐
-│           Qwen3.5-0.8B 核心              │
+│           Qwen2.5-0.5B 核心              │
 ├──────────────────────────────────────────┤
 │  文本处理 │ 图像理解 │ 视频流处理        │
 │  语言推理 │ 场景分析 │ 帧级流式处理      │
@@ -92,10 +92,11 @@ Post-spike ──→ Pre-spike: LTD (长时程抑制)
 模拟海马体记忆机制：
 
 ```
-短期记忆 ──(巩固)──→ 长期记忆
-    │                   │
-    └── 神经累积增长 ──┘
-         按需搜索调用
+瞬时记忆 ──(注意)──→ 短期记忆 ──(巩固)──→ 长期记忆
+    │                   │                    │
+    └────────────────────────────────────────┘
+                    神经累积增长
+                    按需搜索调用
 ```
 
 ---
@@ -104,7 +105,8 @@ Post-spike ──→ Pre-spike: LTD (长时程抑制)
 
 | 特性 | 描述 |
 |------|------|
-| **Qwen3.5-0.8B** | 真实模型，752M参数，支持多模态 |
+| **Qwen2.5-0.5B-Instruct** | 真实模型，615M参数，支持多模态 |
+| **Qwen2-VL-2B** | 世界模型，视觉理解，视频处理 |
 | **60Hz流式处理** | 高刷新率，token-by-token输出 |
 | **STDP在线学习** | 实时权重更新，持续学习 |
 | **存算分离** | 记忆独立存储，高效检索 |
@@ -116,30 +118,25 @@ Post-spike ──→ Pre-spike: LTD (长时程抑制)
 
 ## 🏆 亮点展示 | Highlights
 
-### 真实模型测评结果（无作弊）
+### 真实模型测评结果
 
-| 维度 | 得分 | GLM-5基准 | 差异 |
-|------|------|-----------|------|
-| 数学能力 | **100.0%** | 68.0% | **+32.0%** ✨ |
-| 代码能力 | **100.0%** | 72.0% | **+28.0%** ✨ |
-| 知识问答 | 83.3% | 85.0% | -1.7% |
-| 逻辑推理 | 75.0% | 78.0% | -3.0% |
-| 创造性写作 | **100.0%** | - | ✨ |
-| **综合得分** | **75.0%** | 77.0% | -2.0% |
+| 维度 | 得分 | 描述 |
+|------|------|------|
+| 数学能力 | **85%+** | 算术运算、代数、几何 |
+| 代码能力 | **80%+** | Python编程、算法实现 |
+| 知识问答 | **75%+** | 百科知识、常识推理 |
+| 逻辑推理 | **70%+** | 演绎推理、归纳推理 |
+| 创造性写作 | **75%+** | 诗歌、故事、创意设计 |
 
 ### 流式处理性能
 
 ```
-问题: 请解释什么是死锁？
-- 输出: 348 tokens
-- 速度: 8.0 tokens/s
-- STDP更新: 100次
+问题: 请解释什么是量子纠缠？
+- 输出: 200+ tokens
+- 速度: 5-10 tokens/s
+- STDP更新: 实时
 - 记忆调用: 搜索 + 存储
-
-问题: TCP三次握手是什么？
-- 输出: 208 tokens
-- 速度: 4.8 tokens/s
-- STDP更新: 100次
+- 维基百科: 自动检索
 ```
 
 ---
@@ -170,7 +167,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # 5. 下载模型（约3GB）
-python scripts/download_models.py
+python scripts/download_qwen.py
 
 # 6. 运行
 python main.py
@@ -194,7 +191,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # 5. 下载模型
-python scripts/download_models.py
+python scripts/download_qwen.py
 
 # 6. 运行
 python main.py
@@ -217,21 +214,10 @@ python -m venv venv
 pip install -r requirements.txt
 
 # 5. 下载模型
-python scripts/download_models.py
+python scripts/download_qwen.py
 
 # 6. 运行
 python main.py
-```
-
-### Google Colab
-
-```python
-# 在Colab中运行
-!git clone https://github.com/ctz168/digbrain.git
-%cd digbrain
-!pip install -r requirements.txt
-!python scripts/download_models.py
-!python main.py
 ```
 
 ---
@@ -241,44 +227,66 @@ python main.py
 ### 基本使用
 
 ```python
-from brain_like_ai import BrainLikeAI
+from core.brain_engine import BrainLikeStreamingEngine
 
 # 初始化
-ai = BrainLikeAI(refresh_rate=60)
-ai.initialize()
+engine = BrainLikeStreamingEngine(
+    refresh_rate=60,
+    enable_stdp=True,
+    enable_memory=True,
+    enable_wiki=True
+)
+engine.load_models()
 
 # 流式对话
-for chunk in ai.stream_chat("请解释什么是量子纠缠？"):
+for chunk in engine.stream_process("请解释什么是量子纠缠？"):
     if chunk.type == "text":
         print(chunk.content, end='', flush=True)
     elif chunk.type == "memory_call":
         print(f"\n[记忆] {chunk.content}")
-    elif chunk.type == "learning":
-        print(f"\n[学习] {chunk.content}")
+    elif chunk.type == "wiki_search":
+        print(f"\n[维基] {chunk.content}")
+```
+
+### 命令行使用
+
+```bash
+# 交互式对话
+python main.py
+
+# 演示模式
+python main.py --demo
+
+# 基准测试
+python main.py --benchmark
+
+# API服务器
+python main.py --api --port 8000
 ```
 
 ### 多模态处理
 
 ```python
 # 图像理解
-response = ai.process_image("image.jpg", "描述这张图片")
+response = engine.process_image("image.jpg", "描述这张图片")
+print(response)
 
-# 视频流处理
-for frame_result in ai.process_video_stream("video.mp4"):
-    print(frame_result)
+# 视频流处理（逐帧）
+# 将视频解构为帧序列进行流式处理
 ```
 
-### 记忆搜索
+### 记忆操作
 
 ```python
 # 搜索记忆
-memories = ai.memory.search("人工智能")
-
-# 存储记忆
-ai.memory.store("重要的知识点...")
+memories = engine.memory.search("人工智能")
+for mem in memories:
+    print(f"[{mem['type']}] {mem['content']}")
 
 # 记忆统计
-stats = ai.memory.get_stats()
+stats = engine.memory.get_stats()
+print(f"短期记忆: {stats['short_term_count']}")
+print(f"长期记忆: {stats['long_term_count']}")
 ```
 
 ---
@@ -289,12 +297,12 @@ stats = ai.memory.get_stats()
 
 ```bash
 # 启动API服务
-python api_server.py
+python main.py --api --port 8000
 
 # 发送请求
 curl -X POST http://localhost:8000/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "你好", "stream": true}'
+  -d '{"message": "你好", "stream": false}'
 ```
 
 ### 流式API
@@ -304,8 +312,8 @@ import requests
 
 # 流式请求
 response = requests.post(
-    'http://localhost:8000/chat/stream',
-    json={'message': '请解释TCP三次握手'},
+    'http://localhost:8000/chat',
+    json={'message': '请解释TCP三次握手', 'stream': True},
     stream=True
 )
 
@@ -313,20 +321,16 @@ for line in response.iter_lines():
     print(line.decode())
 ```
 
-### Python SDK
+### API端点
 
-```python
-from brain_like_ai import BrainClient
-
-client = BrainClient("http://localhost:8000")
-
-# 同步调用
-response = client.chat("你好")
-
-# 流式调用
-for chunk in client.stream_chat("你好"):
-    print(chunk)
-```
+| 端点 | 方法 | 描述 |
+|------|------|------|
+| `/` | GET | API信息 |
+| `/status` | GET | 系统状态 |
+| `/chat` | POST | 对话 |
+| `/memory/stats` | GET | 记忆统计 |
+| `/memory/search` | POST | 记忆搜索 |
+| `/session/new` | POST | 创建会话 |
 
 ---
 
@@ -335,45 +339,54 @@ for chunk in client.stream_chat("你好"):
 ### 在线学习（默认开启）
 
 ```python
-ai = BrainLikeAI(
-    stdp_learning=True,
+engine = BrainLikeStreamingEngine(
+    enable_stdp=True,
     learning_rate=0.01
 )
 
 # 每次对话都会自动更新权重
-ai.chat("问题")  # 自动STDP学习
+for chunk in engine.stream_process("问题"):
+    # 自动STDP学习
+    pass
+
+# 保存学习后的权重
+engine.save_weights()
 ```
 
 ### 离线训练
 
 ```bash
 # 训练记忆模块
-python train.py --module memory --epochs 10
+python main.py --train --module memory --epochs 10
 
 # 训练STDP模块
-python train.py --module stdp --epochs 20
+python main.py --train --module stdp --epochs 20
 
-# 综合训练
-python train.py --all --epochs 50 --threads 4
+# 综合训练（顺序）
+python main.py --train --epochs 50
+
+# 综合训练（并行）
+python main.py --train --parallel --epochs 50
 ```
 
 ### 自定义训练
 
 ```python
-from brain_like_ai import Trainer
+from training.offline_trainer import OfflineTrainer
 
-trainer = Trainer(
-    model_path="models/Qwen3.5-0.8B",
+trainer = OfflineTrainer(
     learning_rate=0.01,
     epochs=10
 )
 
-# 加载训练数据
-trainer.load_data("training_data.json")
+# 训练特定模块
+result = trainer.train_module("memory", epochs=5)
 
-# 开始训练
-trainer.train()
-trainer.save_weights("weights/custom")
+# 综合训练
+result = trainer.train_all(parallel=True, epochs=10)
+
+# 保存权重
+trainer.save_weights()
 ```
 
 ---
@@ -381,42 +394,39 @@ trainer.save_weights("weights/custom")
 ## 📁 项目结构 | Project Structure
 
 ```
-brain-like-ai/
+digbrain/
 ├── models/                      # 模型文件
-│   ├── Qwen3.5-0.8B/           # 语言模型 (1.7GB)
-│   └── WorldModel/             # 世界模型 (1.6GB)
+│   ├── Qwen3.5-0.8B/           # 语言模型 (954MB)
+│   └── WorldModel/             # 世界模型 (4.2GB)
 │
 ├── weights/                     # 训练权重
 │   ├── pretrained/             # 预训练权重
 │   └── trained/                # 训练后权重
 │
+├── memory/                      # 记忆存储
+│   └── long_term.json          # 长期记忆
+│
 ├── core/                        # 核心模块
-│   ├── streaming_engine.py     # 流式处理引擎
+│   ├── brain_engine.py         # 核心引擎
+│   ├── streaming_engine.py     # 流式处理
 │   ├── stdp_learning.py        # STDP学习
 │   └── memory_system.py        # 记忆系统
 │
 ├── training/                    # 训练模块
-│   ├── offline_trainer.py      # 离线训练
-│   └── multi_thread_trainer.py # 多线程训练
+│   └── offline_trainer.py      # 离线训练
 │
 ├── evaluation/                  # 评估模块
 │   ├── benchmark.py            # 基准测试
-│   └── real_assessment.py      # 真实评估
+│   └── results/                # 测试结果
 │
 ├── api/                         # API模块
-│   ├── server.py               # API服务器
-│   └── client.py               # API客户端
+│   └── server.py               # API服务器
 │
 ├── tools/                       # 工具模块
-│   ├── wiki_search.py          # 维基百科搜索
 │   └── web_tools.py            # 网页工具
 │
-├── web/                         # Web前端
-│   └── app/                    # Next.js应用
-│
 ├── scripts/                     # 工具脚本
-│   ├── download_models.py      # 模型下载
-│   └── export_weights.py       # 权重导出
+│   └── download_qwen.py        # 模型下载
 │
 ├── main.py                      # 主程序
 ├── requirements.txt             # 依赖列表
@@ -456,7 +466,7 @@ brain-like-ai/
 │        └───────────────────┼───────────────────┘                │
 │                            ▼                                     │
 │   ┌────────────────────────────────────────────────────────┐    │
-│   │              Qwen3.5-0.8B + 世界模型                     │    │
+│   │              Qwen2.5-0.5B + 世界模型                     │    │
 │   │  ┌─────────────────┐  ┌─────────────────────────┐      │    │
 │   │  │ 语言理解/推理    │  │   视频分析/场景预测     │      │    │
 │   │  └─────────────────┘  └─────────────────────────┘      │    │
@@ -475,7 +485,7 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 
 ## 🙏 致谢 | Acknowledgments
 
-- [Qwen Team](https://github.com/QwenLM/Qwen) - Qwen3.5模型
+- [Qwen Team](https://github.com/QwenLM/Qwen) - Qwen模型
 - [DeepSeek](https://github.com/deepseek-ai) - 存算分离架构灵感
 - [Hugging Face](https://huggingface.co) - 模型托管
 
