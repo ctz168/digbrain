@@ -210,6 +210,14 @@ def web_mode(args):
     server.start()
 
 
+def bot_mode(args):
+    """Telegram Bot模式"""
+    from bot.telegram_bot import TelegramBot
+    
+    bot = TelegramBot(token=args.bot_token if hasattr(args, 'bot_token') else None)
+    bot.run()
+
+
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
@@ -222,6 +230,7 @@ def main():
   python main.py --train --epochs 10      # 训练模式
   python main.py --api --port 8000        # API服务器
   python main.py --web --port 8000        # Web界面
+  python main.py --bot                    # Telegram Bot
   python main.py --benchmark              # 基准测试
         """
     )
@@ -231,6 +240,7 @@ def main():
     parser.add_argument("--train", action="store_true", help="训练模式")
     parser.add_argument("--api", action="store_true", help="API服务器模式")
     parser.add_argument("--web", action="store_true", help="Web界面模式")
+    parser.add_argument("--bot", action="store_true", help="Telegram Bot模式")
     parser.add_argument("--benchmark", action="store_true", help="基准测试模式")
     
     # 通用参数
@@ -249,6 +259,7 @@ def main():
     parser.add_argument("--host", type=str, default="0.0.0.0", help="服务器地址")
     parser.add_argument("--port", type=int, default=8000, help="服务器端口")
     parser.add_argument("--flask", action="store_true", help="使用Flask服务器")
+    parser.add_argument("--bot-token", type=str, help="Telegram Bot Token")
     
     args = parser.parse_args()
     
@@ -272,6 +283,11 @@ def main():
     # Web模式
     if args.web:
         web_mode(args)
+        return
+    
+    # Bot模式
+    if args.bot:
+        bot_mode(args)
         return
     
     # 训练模式
