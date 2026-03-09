@@ -197,6 +197,19 @@ def api_mode(args):
     server.start(use_flask=args.flask)
 
 
+def web_mode(args):
+    """Web界面模式"""
+    from web.server import BrainWebServer
+    
+    server = BrainWebServer(
+        host=args.host,
+        port=args.port,
+        refresh_rate=args.refresh_rate
+    )
+    
+    server.start()
+
+
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(
@@ -208,6 +221,7 @@ def main():
   python main.py --demo                   # 演示模式
   python main.py --train --epochs 10      # 训练模式
   python main.py --api --port 8000        # API服务器
+  python main.py --web --port 8000        # Web界面
   python main.py --benchmark              # 基准测试
         """
     )
@@ -216,6 +230,7 @@ def main():
     parser.add_argument("--demo", action="store_true", help="演示模式")
     parser.add_argument("--train", action="store_true", help="训练模式")
     parser.add_argument("--api", action="store_true", help="API服务器模式")
+    parser.add_argument("--web", action="store_true", help="Web界面模式")
     parser.add_argument("--benchmark", action="store_true", help="基准测试模式")
     
     # 通用参数
@@ -252,6 +267,11 @@ def main():
     # API模式
     if args.api:
         api_mode(args)
+        return
+    
+    # Web模式
+    if args.web:
+        web_mode(args)
         return
     
     # 训练模式
