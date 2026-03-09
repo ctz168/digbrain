@@ -1,9 +1,8 @@
 """
-类脑AI系统 - 核心模块
-Brain-like AI System - Core Module
+类脑AI核心模块
 """
 
-from .streaming_engine import BrainLikeAI, StreamChunk
+from .streaming_engine import BrainLikeStreamingEngine as BrainLikeAI, StreamChunk
 from .stdp_learning import STDPOnlineLearning
 from .memory_system import HippocampalMemory
 from .multimodal import MultimodalProcessor
